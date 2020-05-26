@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ChoBoard</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <!--게시판 상단 네비게이션-->
+        <nav class="navbar navbar-expand-md bg-info navbar-light fixed-top shadow-lg">
+            <a class="navbar-brand" href="index.html">ChoBoard</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>        
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="board_main.html" class="nav-link">자유게시판</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="board_main.html" class="nav-link">정보게시판</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="board_main.html" class="nav-link">맛집게시판</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="board_main.html" class="nav-link">비밀게시판</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="user_login.html" class="nav-link">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="user_signIn.html" class="nav-link">회원가입</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="user_update.html" class="nav-link">회원수정</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">로그아웃</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container" style="margin-top:100px">
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-9">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <form action="board_modify.html" method="post">
+                                <div class="form-group">
+                                    <label for="board_writer_name">작성자</label>
+                                    <input type="text" id="board_writer_name" name="board_writer_name" class="form-control" value="홍길동" disabled="disabled"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="board_date">작성날짜</label>
+                                    <input type="text" id="board_date" name="board_date" class="form-control" value="2018-7-20" disabled="disabled"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="board_subject">제목</label>
+                                    <input type="text" id="board_subject" name="board_subject" class="form-control" value="제목입니다"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="board_content">내용</label>
+                                    <textarea id="board_content" name="board_content" class="form-control" rows="10" style="resize:none">본문입니다</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="board_file">첨부 이미지</label>
+                                    <img src="#" width="100%"/>	
+                                    <input type="file" name="board_file" id="board_file" class="form-control" accept="image/*"/>					
+                                </div>
+                                <div class="form-group">
+                                    <div class="text-right">
+                                        <button type="submit" class="btn btn-primary">수정완료</button>
+                                        <a href="board_read.html" class="btn btn-info">취소</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+        </div>
+
+        <!--하단 정보-->
+        <div class="container-fluid bg-dark text-white" style="margin-top:50px;padding-top:30px;padding-bottom:30px">
+            <div class="container">
+                <p> github : <a class="badge badge-secondary" href="https://github.com/chosh95/Board_Mini_Project">https://github.com/chosh95/Board_Mini_Project</a></p>
+                <p> 연락처 : chosh-95@hanmail.net</p>
+            </div>
+        </div>
+    </body>
+</html>
