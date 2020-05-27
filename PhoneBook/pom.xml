@@ -109,5 +109,12 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.10.2</version>
 		</dependency>
+		
+			<!-- google -->
+		<dependency>
+		    <groupId>org.springframework.social</groupId>
+		    <artifactId>spring-social-google</artifactId>
+	            <version>1.0.0.RELEASE</version>
+	    </dependency>
 	</dependencies>
 </project>

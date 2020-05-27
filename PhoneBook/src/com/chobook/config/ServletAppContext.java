@@ -1,7 +1,13 @@
 package com.chobook.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.support.ConnectionFactoryRegistry;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.google.connect.GoogleOAuth2Template;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -26,5 +32,27 @@ public class ServletAppContext implements WebMvcConfigurer{
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 		registry.addResourceHandler("/**").addResourceLocations("/resources/");
+	}
+	
+	@Bean
+	public GoogleConnectionFactory googleConnectionFactory() {
+		return new GoogleConnectionFactory("1043729165158-nca747cc5g30oq19eosvasn19kuubgoa.apps.googleusercontent.com", "phoG3u-JA3vsGyz_Iv8YHklf");
+	}
+	
+	@Bean
+	public ConnectionFactoryLocator connectionFactoryLocator() {
+		ConnectionFactoryRegistry regist = new ConnectionFactoryRegistry();
+		regist.addConnectionFactory(googleConnectionFactory());
+		return regist;
+	}
+	
+	@Bean
+	public OAuth2Parameters googleOAuth2Parameters() {
+		OAuth2Parameters oAuth2Parameters = new OAuth2Parameters();
+		String scope =  "https://www.googleapis.com/auth/plus.login";
+		String redirectUri = "http://localhost:8080/PhoneBook/oauth2callback";
+		oAuth2Parameters.setScope(scope);
+		oAuth2Parameters.setRedirectUri(redirectUri);
+		return oAuth2Parameters;
 	}
 }

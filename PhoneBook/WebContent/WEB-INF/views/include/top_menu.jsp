@@ -21,16 +21,7 @@
         
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a href="user_login.html" class="nav-link">로그인</a>
-            </li>
-            <li class="nav-item">
-                <a href="user_signIn.html" class="nav-link">회원가입</a>
-            </li>
-            <li class="nav-item">
-                <a href="user_update.html" class="nav-link">회원수정</a>
-            </li>
-            <li class="nav-item">
-                <a href="index.html" class="nav-link">로그아웃</a>
+                <a href="${root}login" class="nav-link">로그인</a>
             </li>
         </ul>
     </div>
