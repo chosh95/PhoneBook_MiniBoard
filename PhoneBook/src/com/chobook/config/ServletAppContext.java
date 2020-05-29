@@ -1,13 +1,19 @@
 package com.chobook.config;
 
+import javax.annotation.Resource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.chobook.bean.UserBean;
+import com.chobook.interceptor.TopMenuInterceptor;
 import com.chobook.social.NaverLoginBO;
 
 // Spring MVC 프로젝트에 관련된 설정을 하는 클래스
@@ -16,8 +22,12 @@ import com.chobook.social.NaverLoginBO;
 @EnableWebMvc
 // 스캔할 패키지를 지정한다.
 @ComponentScan("com.chobook.controller")
-@ComponentScan("com.test.sts")
+@ComponentScan("com.chobook.social")
 public class ServletAppContext implements WebMvcConfigurer{
+	
+	@Resource(name = "loginUserBean")
+	private UserBean loginUserBean;
+	
 	// Controller의 메서드가 반환하는 jsp의 이름 앞뒤에 경로와 확장자를 붙혀주도록 설정한다.
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -35,5 +45,15 @@ public class ServletAppContext implements WebMvcConfigurer{
 	@Bean
 	public NaverLoginBO naverLoginBO() {
 		return new NaverLoginBO();
+	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		WebMvcConfigurer.super.addInterceptors(registry);
+		
+		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(loginUserBean);
+		InterceptorRegistration reg1 = registry.addInterceptor(topMenuInterceptor);
+		reg1.addPathPatterns("/**");
+		
 	}
 }

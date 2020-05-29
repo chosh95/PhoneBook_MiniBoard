@@ -5,6 +5,7 @@ public class UserBean {
 	private String userId;
 	private String userEmail;
 	private String userName;
+	private String userBirthday;
 	private boolean isLogin;
 	
 	public UserBean() {
@@ -34,5 +35,12 @@ public class UserBean {
 	}
 	public void setLogin(boolean isLogin) {
 		this.isLogin = isLogin;
+	}
+	public String getUserBirthday() {
+		return userBirthday;
+	}
+
+	public void setUserBirthday(String userBirthday) {
+		this.userBirthday = userBirthday;
 	}
 }

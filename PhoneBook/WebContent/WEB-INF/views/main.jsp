@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var='root' value="${pageContext.request.contextPath }/" />
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
 
 	<div class="container" style="margin-top:100px; margin-bottom:100px">
 		<div class="col-sm text-center">
-			<a href="${root }phoneBook/main"><img src="${root}/img/bookIcon.png" height="150px"><br>ÀüÈ­¹øÈ£ºÎ</a>
+			<a href="${root }phoneBook/main"><img src="${root}/img/bookIcon.png" height="150px"><br>ì „í™”ë²ˆí˜¸ë¶€</a>
 		</div>
 	</div>
 

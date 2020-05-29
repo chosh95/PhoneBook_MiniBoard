@@ -2,14 +2,19 @@ package com.chobook.controller;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.chobook.bean.UserBean;
 import com.chobook.social.NaverLoginBO;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
@@ -23,6 +28,9 @@ public class LoginController {
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
 	}
+	
+	@Resource(name="loginUserBean")
+	private UserBean loginUserBean;
 	
 	@GetMapping("/user/naverLogin")
 	public String naverLogin(Model model, HttpSession session) {
@@ -50,30 +58,37 @@ public class LoginController {
         apiResult = naverLoginBO.getUserProfile(oauthToken);
         System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
         model.addAttribute("result", apiResult);
-        System.out.println("result"+apiResult);
+        System.out.println("result "+apiResult);
+        
         /* 네이버 로그인 성공 페이지 View 호출 */
-//      JSONObject jsonobj = jsonparse.stringToJson(apiResult, "response");
-//      String snsId = jsonparse.JsonToString(jsonobj, "id");
-//      String name = jsonparse.JsonToString(jsonobj, "name");
-//
-//      UserVO vo = new UserVO();
-//      vo.setUser_snsId(snsId);
-//      vo.setUser_name(name);
-//
-//      System.out.println(name);
-//      try {
-//          vo = service.naverLogin(vo);
-//      } catch (Exception e) {
-//          // TODO Auto-generated catch block
-//          e.printStackTrace();
-//      }
-
-
-//      session.setAttribute("login",vo);
-//      return new ModelAndView("user/loginPost", "result", vo);	
+		try {
+			JSONParser parser = new JSONParser();
+			JSONObject jsonobj = (JSONObject)parser.parse(apiResult);
+			JSONObject parse_response = (JSONObject)jsonobj.get("response");
+			String id = (String)parse_response.get("id");
+			String name = (String)parse_response.get("name");
+			String email = (String)parse_response.get("email");
+			String birthday = (String)parse_response.get("birthday");
+			
+			System.out.println(name + " " + id + " " + email);
+			
+			loginUserBean.setLogin(true);
+			loginUserBean.setUserId(id);
+			loginUserBean.setUserName(name);
+			loginUserBean.setUserBirthday(birthday);
+			System.out.println("callback " + loginUserBean.isLogin());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		return "/user/naverCallBack";
 	}
 	
+	@GetMapping("/user/logout")
+	public String logout() {
+		loginUserBean.setLogin(false);
+		System.out.println("logout " + loginUserBean.isLogin());
+		return "/user/logout";
+	}
 
 }

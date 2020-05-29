@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var='root' value="${pageContext.request.contextPath }/" />
 <!DOCTYPE html>
@@ -18,10 +18,10 @@
 
 	<div class="container" style="margin-top:100px; margin-bottom:100px">
 		<div class="col-sm text-center">
-			<a href="${root }phoneBook/search"><img src="${root }/img/searchIcon.png" height="150px"><br>��ȭ��ȣ ��ȸ/�˻�</a>
+			<a href="${root }phoneBook/search"><img src="${root }/img/searchIcon.png" height="150px"><br>전화번호 조회/검색</a>
 		</div>
 		<div class="col-sm text-center" style="margin-top:30px">
-			<a href="${root }phoneBook/insert"><img src="${root }/img/phonePlusIcon.png" height="150px"><br>��ȭ��ȣ �߰�</a>
+			<a href="${root }phoneBook/insert"><img src="${root }/img/phonePlusIcon.png" height="150px"><br>전화번호 추가</a>
 		</div>
 	</div>
 

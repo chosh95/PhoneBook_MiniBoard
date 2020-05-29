@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var='root' value='#{pageContext.request.contextPath }/'/>    
-<!-- ∞‘Ω√∆« ªÛ¥‹ ∏ﬁ¥∫ -->
+<!-- Í≤åÏãúÌåê ÏÉÅÎã® Î©îÎâ¥ -->
 <nav class="navbar navbar-dark bg-primary navbar-expand-sm">
 
 	<a class="navbar-brand " href="${root }main">ChoBoard</a>
@@ -13,13 +13,22 @@
     </button>
     
     <div class="collapse navbar-collapse" id="navMenu">
+    	
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a href="${root}user/naverLogin" class="nav-link">∑Œ±◊¿Œ</a>
-            </li>
-            <li class="nav-item">
-                <a href="${root}user/logout" class="nav-link">∑Œ±◊æ∆øÙ</a>
-            </li>
+        	<c:choose>
+        		<c:when test="${loginUserBean.isLogin() != true}">
+		            <li class="nav-item">
+		                <a href="${root}user/naverLogin" class="nav-link">Î°úÍ∑∏Ïù∏</a>
+		            </li>
+	            </c:when>
+	            <c:otherwise>
+		            <li class="nav-item">
+		                <a href="${root}user/logout" class="nav-link">Î°úÍ∑∏ÏïÑÏõÉ</a>
+		            </li>
+	            </c:otherwise>
+            </c:choose>
         </ul>
     </div>
+    
+    
 </nav>
