@@ -2,9 +2,15 @@ package com.chobook.config;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -23,10 +29,24 @@ import com.chobook.social.NaverLoginBO;
 // 스캔할 패키지를 지정한다.
 @ComponentScan("com.chobook.controller")
 @ComponentScan("com.chobook.social")
+@PropertySource("/WEB-INF/properties/naverLogin.properties")
+@PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer{
 	
 	@Resource(name = "loginUserBean")
 	private UserBean loginUserBean;
+	
+	@Value("${db.classname}")
+	private String db_classname;
+	
+	@Value("${db.url}")
+	private String db_url;
+	
+	@Value("${db.username}")
+	private String db_username;
+	
+	@Value("${db.password}")
+	private String db_password;
 	
 	// Controller의 메서드가 반환하는 jsp의 이름 앞뒤에 경로와 확장자를 붙혀주도록 설정한다.
 	@Override
@@ -54,6 +74,32 @@ public class ServletAppContext implements WebMvcConfigurer{
 		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(loginUserBean);
 		InterceptorRegistration reg1 = registry.addInterceptor(topMenuInterceptor);
 		reg1.addPathPatterns("/**");
-		
 	}
+	
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer PropertySource() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+	
+	//데이터베이스 접속 정보를 관리하는 Bean
+	@Bean
+	public BasicDataSource dataSource() {
+		BasicDataSource source = new BasicDataSource();
+		source.setDriverClassName(db_classname);
+		source.setUrl(db_url);
+		source.setUsername(db_username);
+		source.setPassword(db_password);
+		
+		return source;
+	}
+	
+	//쿼리문과 접속 정보를 관리하는 객체
+	@Bean
+	public SqlSessionFactory factory(BasicDataSource source) throws Exception{
+		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+		factoryBean.setDataSource(source);
+		SqlSessionFactory factory = factoryBean.getObject();
+		return factory;
+	}
+	
 }
