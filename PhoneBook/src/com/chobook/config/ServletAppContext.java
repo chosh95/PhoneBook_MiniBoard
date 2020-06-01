@@ -5,12 +5,14 @@ import javax.annotation.Resource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.chobook.bean.UserBean;
 import com.chobook.interceptor.TopMenuInterceptor;
+import com.chobook.mapper.PhoneMapper;
 import com.chobook.social.NaverLoginBO;
 
 // Spring MVC 프로젝트에 관련된 설정을 하는 클래스
@@ -28,6 +31,8 @@ import com.chobook.social.NaverLoginBO;
 @EnableWebMvc
 // 스캔할 패키지를 지정한다.
 @ComponentScan("com.chobook.controller")
+@ComponentScan("com.chobook.service")
+@ComponentScan("com.chobook.dao")
 @ComponentScan("com.chobook.social")
 @PropertySource("/WEB-INF/properties/naverLogin.properties")
 @PropertySource("/WEB-INF/properties/db.properties")
@@ -102,4 +107,17 @@ public class ServletAppContext implements WebMvcConfigurer{
 		return factory;
 	}
 	
+	@Bean
+	public MapperFactoryBean<PhoneMapper> getPhoneBean(SqlSessionFactory factory) throws Exception{
+		MapperFactoryBean<PhoneMapper> mfb = new MapperFactoryBean<PhoneMapper>(PhoneMapper.class);
+		mfb.setSqlSessionFactory(factory);
+		return mfb;
+	}
+	
+	@Bean
+	public ReloadableResourceBundleMessageSource messageSource() {
+		ReloadableResourceBundleMessageSource res = new ReloadableResourceBundleMessageSource();
+		res.setBasenames("/WEB-INF/properties/error_message");
+		return res;
+	}
 }
