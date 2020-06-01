@@ -35,12 +35,12 @@
 								<form:errors path='phone_number' style='color:red'/>
 							</div>
 							<div class='form-group'>
-								<form:label path="phone_month">월</form:label>
+								<form:label path="phone_month">생일 - 월</form:label>
 								<form:input path='phone_month' class="form-control" />
 								<form:errors path='phone_month' style='color:red'/>
 							</div>
 							<div class='form-group'>
-								<form:label path="phone_day">일</form:label>
+								<form:label path="phone_day">생일 - 일</form:label>
 								<form:input path='phone_day' class="form-control" />
 								<form:errors path='phone_day' style='color:red'/>
 							</div>

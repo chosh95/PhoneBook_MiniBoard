@@ -14,7 +14,7 @@ public class PhoneBean {
 	private String phone_name;
 	
 	@Size(min=11, max = 14)
-	@Pattern(regexp="[0-9]*")
+	@Pattern(regexp="^\\d{2,3}-\\d{3,4}-\\d{4}$")
 	private String phone_number;
 	
 	@Min(1)
