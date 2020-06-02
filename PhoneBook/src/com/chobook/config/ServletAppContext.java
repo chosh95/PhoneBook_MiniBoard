@@ -21,6 +21,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.chobook.bean.UserBean;
+import com.chobook.interceptor.NotLoginInterceptor;
 import com.chobook.interceptor.TopMenuInterceptor;
 import com.chobook.mapper.PhoneMapper;
 import com.chobook.social.NaverLoginBO;
@@ -79,6 +80,10 @@ public class ServletAppContext implements WebMvcConfigurer{
 		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(loginUserBean);
 		InterceptorRegistration reg1 = registry.addInterceptor(topMenuInterceptor);
 		reg1.addPathPatterns("/**");
+		
+		NotLoginInterceptor notLoginInterceptor = new NotLoginInterceptor(loginUserBean);
+		InterceptorRegistration reg2 = registry.addInterceptor(notLoginInterceptor);
+		reg2.addPathPatterns("/phoneBook/**");
 	}
 	
 	@Bean

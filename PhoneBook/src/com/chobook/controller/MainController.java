@@ -15,4 +15,9 @@ public class MainController {
 	public String main() {
 		return "main";
 	}
+	
+	@GetMapping("/notLogin")
+	public String notLogin() {
+		return "notLogin";
+	}
 }

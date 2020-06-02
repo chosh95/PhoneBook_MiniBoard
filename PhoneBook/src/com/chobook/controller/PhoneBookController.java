@@ -87,4 +87,5 @@ public class PhoneBookController {
 		System.out.println("update pro 2 : " + updatePhoneBean.getPhone_name() + updatePhoneBean.getPhone_idx() + updatePhoneBean.getUser_idx());
 		return "phoneBook/update_success";
 	}
+
 }
