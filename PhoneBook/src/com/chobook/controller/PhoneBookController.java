@@ -67,4 +67,24 @@ public class PhoneBookController {
 		phoneService.deletePhone(phone_idx);
 		return "phoneBook/delete";
 	}
+	
+	@GetMapping("/phoneBook/update")
+	public String update(@RequestParam int phone_idx, Model model) {
+		
+		PhoneBean updatePhoneBean= phoneService.getPhone(phone_idx);
+		model.addAttribute("updatePhoneBean", updatePhoneBean);
+		return "phoneBook/update";
+	}
+	
+	@PostMapping("/phoneBook/update_pro")
+	public String update_pro(@Valid @ModelAttribute("updatePhoneBean") PhoneBean updatePhoneBean,
+							 BindingResult result) {
+		if(result.hasErrors()) {
+			return "phoneBook/update";
+		}
+		System.out.println("update pro 1 : " + updatePhoneBean.getPhone_name() + updatePhoneBean.getPhone_idx() + updatePhoneBean.getUser_idx());
+		phoneService.updatePhone(updatePhoneBean);
+		System.out.println("update pro 2 : " + updatePhoneBean.getPhone_name() + updatePhoneBean.getPhone_idx() + updatePhoneBean.getUser_idx());
+		return "phoneBook/update_success";
+	}
 }

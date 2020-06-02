@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.chobook.bean.PhoneBean;
 
@@ -27,4 +28,10 @@ public interface PhoneMapper {
 	@Delete("delete from phone_table " + 
 			"where phone_idx=#{phone_idx}")
 	void deletePhone(int phone_idx);
+	
+	@Update("update phone_table " + 
+			"set phone_name=#{phone_name}, phone_number=#{phone_number}, " + 
+			"phone_memo=#{phone_memo}, phone_month=#{phone_month}, phone_day=#{phone_day} " +
+			"where phone_idx=#{phone_idx}")
+	void updatePhone(PhoneBean updatePhoneBean);
 }

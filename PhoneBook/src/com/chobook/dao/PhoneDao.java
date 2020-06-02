@@ -29,4 +29,8 @@ public class PhoneDao {
 	public void deletePhone(int phone_idx) {
 		phoneMapper.deletePhone(phone_idx);
 	}
+	
+	public void updatePhone(PhoneBean updatePhoneBean) {
+		phoneMapper.updatePhone(updatePhoneBean);
+	}
 }

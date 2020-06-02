@@ -29,4 +29,8 @@ public class PhoneService {
 	public void deletePhone(int phone_idx) {
 		phoneDao.deletePhone(phone_idx);
 	}
+	
+	public void updatePhone(PhoneBean updatePhoneBean) {
+		phoneDao.updatePhone(updatePhoneBean);
+	}
 }
