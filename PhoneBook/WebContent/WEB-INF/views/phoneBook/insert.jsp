@@ -20,7 +20,7 @@
 	<div class="container" style="margin-top:100px; margin-bottom:100px">
 		<form:form action="${root }phoneBook/insert_pro" method='post' modelAttribute="phoneBean">
 			<div class="row">
-				<div class="col-sm-9">
+				<div class="col-sm">
 					<div class="card shadow">
 						<div class="card-body">
 							<p>전화번호 저장하기</p>
